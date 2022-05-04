@@ -46,16 +46,22 @@ let theTimer = {
       }
     }
   },
-  countdonwOperation: function () {},
-  countDownProcess: function () {
-    this.countDownStart();
-    timeInterval = setInterval(function () {
-      if (this.secondValue >= 1) {
-        this.secondValue--;
+  countdonwOperation: function () {
+    if (this.secondValue >= 1) {
+      this.secondValue--;
+    } else {
+      if (this.minuteValue >= 1) {
+        this.minuteValue -= 1;
+        this.secondValue = 60;
       } else {
         this.countDownStart();
       }
-    }, 1000);
+    }
+    this.timeShow();
+  },
+  countDownProcess: function () {
+    this.countDownStart();
+    timeInterval = setInterval(this.countdonwOperation, 1000);
   },
 };
 
