@@ -3,6 +3,7 @@ let second = document.querySelector(".second");
 let minute = document.querySelector(".minute");
 let hour = document.querySelector(".hour");
 let minuteInpute = document.querySelector("input");
+let timeInterval;
 
 let theTimer = {
   secondValue: 0,
@@ -31,9 +32,35 @@ let theTimer = {
       hour.innerHTML = this.hourValue;
     }
   },
+  countDownStart: function () {
+    if (this.minuteValue >= 1) {
+      this.minuteValue -= 1;
+      this.secondValue = 60;
+    } else {
+      if (this.hourValue >= 1) {
+        this.hourValue -= 1;
+        this.minuteValue = 59;
+        this.secondValue = 60;
+      } else {
+        clearInterval(timeInterval);
+      }
+    }
+  },
+  countdonwOperation: function () {},
+  countDownProcess: function () {
+    this.countDownStart();
+    timeInterval = setInterval(function () {
+      if (this.secondValue >= 1) {
+        this.secondValue--;
+      } else {
+        this.countDownStart();
+      }
+    }, 1000);
+  },
 };
 
 buttons[0].addEventListener("click", function () {
   theTimer.timeDivdor(minuteInpute.value);
+  theTimer.countDownProcess();
   theTimer.timeShow();
 });
