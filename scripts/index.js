@@ -33,37 +33,53 @@ let theTimer = {
     }
   },
   countDownStart: function () {
-    if (this.minuteValue > 0) {
-      this.minuteValue - 1;
-      this.secondValue = 60;
-    } else {
-      if (this.hourValue > 0) {
-        this.hourValue--;
-        this.minuteValue = 59;
+    // if (this.minuteValue > 0) {
+    //   this.minuteValue - 1;
+    //   this.secondValue = 60;
+    // } else {
+    //   if (this.hourValue > 0) {
+    //     this.hourValue--;
+    //     this.minuteValue = 59;
+    //     this.secondValue = 60;
+    //   } else {
+    //     clearInterval(timeInterval);
+    //   }
+    // }
+    if (Number(minuteInpute.value >= 1)) {
+      if (this.minuteValue >= 1) {
+        this.minuteValue--;
         this.secondValue = 60;
       } else {
-        clearInterval(timeInterval);
+        if (this.hourValue >= 1) {
+          this.hourValue--;
+          this.minuteValue = 60;
+          this.minuteValue--;
+          this.secondValue = 60;
+        }
       }
+    } else {
+      alert("کمتر از عدد 1 پذیرفته نمیشود.");
     }
+    this.timeShow();
   },
   countdonwOperation: function () {
     this.countDownStart();
-    timeInterval = setInterval(function () {
-      if (theTimer.secondValue > 0) {
-        theTimer.secondValue - 1;
-        if ((theTimer.secondValue = 0)) {
-          theTimer.minuteValue--;
-        }
-      } else {
-        if (theTimer.minuteValue > 0) {
-          theTimer.minuteValue--;
-          theTimer.secondValue = 60;
-        } else {
-          clearInterval(timeInterval);
-        }
-      }
-      theTimer.timeShow();
-    }, 1000);
+    // timeInterval = setInterval(function () {
+    //   if (theTimer.secondValue > 0) {
+    //     theTimer.secondValue - 1;
+    //     if ((theTimer.secondValue = 0)) {
+    //       theTimer.minuteValue--;
+    //     }
+    //   } else {
+    //     if (theTimer.minuteValue > 0) {
+    //       theTimer.minuteValue--;
+    //       theTimer.secondValue = 60;
+    //     } else {
+    //       clearInterval(timeInterval);
+    //     }
+    //   }
+    //   theTimer.timeShow();
+    // }, 1000);
   },
 };
 
