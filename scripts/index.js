@@ -4,6 +4,7 @@ let minute = document.querySelector(".minute");
 let hour = document.querySelector(".hour");
 let minuteInpute = document.querySelector("input");
 let timeInterval;
+let tt;
 
 let theTimer = {
   secondValue: 0,
@@ -50,36 +51,33 @@ let theTimer = {
     }
     this.timeShow();
   },
+  countDown: function () {
+    if (minuteInpute.value >= 1) {
+      if (theTimer.secondValue) {
+        theTimer.secondValue--;
+        if (theTimer.secondValue == 0) {
+          if (theTimer.minuteValue >= 1) {
+            theTimer.minuteValue--;
+            theTimer.secondValue = 60;
+          } else if (theTimer.hourValue >= 1) {
+            theTimer.hourValue--;
+            theTimer.minuteValue = 60;
+            theTimer.minuteValue--;
+            theTimer.secondValue = 60;
+          } else {
+            clearInterval(timeInterval);
+            timeInterval = undefined;
+          }
+        }
+        theTimer.timeShow();
+      }
+    } else {
+      console.log("Else");
+    }
+  },
   countdonwOperation: function () {
     this.countDownStart();
-    timeInterval = setInterval(function () {
-      if (minuteInpute.value >= 1) {
-        console.log("first IF");
-        if (theTimer.secondValue) {
-          console.log("seccond IF");
-          theTimer.secondValue--;
-          if (theTimer.secondValue == 0) {
-            console.log("Third IF");
-            if (theTimer.minuteValue >= 1) {
-              theTimer.minuteValue--;
-              theTimer.secondValue = 60;
-              theTimer.timeShow();
-            } else if (theTimer.hourValue >= 1) {
-              this.hourValue--;
-              this.minuteValue = 60;
-              this.minuteValue--;
-              this.secondValue = 60;
-            } else {
-              clearInterval(timeInterval);
-              timeInterval = undefined;
-            }
-          }
-          theTimer.timeShow();
-        }
-      } else {
-        console.log("Else");
-      }
-    }, 1000);
+    timeInterval = setInterval(this.countDown, 1000);
   },
 };
 
@@ -90,7 +88,14 @@ buttons[0].addEventListener("click", function () {
   }
 });
 buttons[1].addEventListener("click", function () {
+  console.log(timeInterval);
   if (timeInterval != undefined) {
-    clearInterval(timeInterval);
+    if (buttons[1].innerHTML == "Stop") {
+      clearInterval(timeInterval);
+      buttons[1].innerHTML = "Continue";
+    } else if (buttons[1].innerHTML == "Continue") {
+      timeInterval = setInterval(theTimer.countDown, 1000);
+      buttons[1].innerHTML = "Stop";
+    }
   }
 });
