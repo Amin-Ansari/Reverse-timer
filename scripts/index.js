@@ -33,12 +33,12 @@ let theTimer = {
     }
   },
   countDownStart: function () {
-    if (this.minuteValue >= 1) {
-      this.minuteValue -= 1;
+    if (this.minuteValue > 0) {
+      this.minuteValue - 1;
       this.secondValue = 60;
     } else {
-      if (this.hourValue >= 1) {
-        this.hourValue -= 1;
+      if (this.hourValue > 0) {
+        this.hourValue--;
         this.minuteValue = 59;
         this.secondValue = 60;
       } else {
@@ -47,25 +47,29 @@ let theTimer = {
     }
   },
   countdonwOperation: function () {
-    if (theTimer.secondValue >= 1) {
-      theTimer.secondValue--;
-    } else {
-      if (theTimer.minuteValue >= 1) {
-        theTimer.minuteValue -= 1;
-        theTimer.secondValue = 60;
-      } else {
-        theTimer.countDownStart();
-      }
-    }
-    theTimer.timeShow();
-  },
-  countDownProcess: function () {
     this.countDownStart();
-    timeInterval = setInterval(this.countdonwOperation, 1000);
+    timeInterval = setInterval(function () {
+      if (theTimer.secondValue > 0) {
+        theTimer.secondValue - 1;
+        if ((theTimer.secondValue = 0)) {
+          theTimer.minuteValue--;
+        }
+      } else {
+        if (theTimer.minuteValue > 0) {
+          theTimer.minuteValue--;
+          theTimer.secondValue = 60;
+        } else {
+          clearInterval(timeInterval);
+        }
+      }
+      theTimer.timeShow();
+    }, 1000);
   },
 };
 
 buttons[0].addEventListener("click", function () {
-  theTimer.timeDivdor(minuteInpute.value);
-  theTimer.countDownProcess();
+  if (timeInterval == undefined) {
+    theTimer.timeDivdor(minuteInpute.value);
+    theTimer.countdonwOperation();
+  }
 });
