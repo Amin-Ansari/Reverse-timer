@@ -72,7 +72,8 @@ let theTimer = {
         theTimer.timeShow();
       }
     } else {
-      console.log("Else");
+      clearInterval(timeInterval);
+      timeInterval = undefined;
     }
   },
   countdonwOperation: function () {
