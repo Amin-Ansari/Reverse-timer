@@ -48,6 +48,7 @@ let theTimer = {
       }
     } else {
       alert("کمتر از عدد 1 پذیرفته نمیشود.");
+      location.reload();
     }
     this.timeShow();
   },
