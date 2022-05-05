@@ -47,17 +47,17 @@ let theTimer = {
     }
   },
   countdonwOperation: function () {
-    if (this.secondValue >= 1) {
-      this.secondValue--;
+    if (theTimer.secondValue >= 1) {
+      theTimer.secondValue--;
     } else {
-      if (this.minuteValue >= 1) {
-        this.minuteValue -= 1;
-        this.secondValue = 60;
+      if (theTimer.minuteValue >= 1) {
+        theTimer.minuteValue -= 1;
+        theTimer.secondValue = 60;
       } else {
-        this.countDownStart();
+        theTimer.countDownStart();
       }
     }
-    this.timeShow();
+    theTimer.timeShow();
   },
   countDownProcess: function () {
     this.countDownStart();
@@ -68,5 +68,4 @@ let theTimer = {
 buttons[0].addEventListener("click", function () {
   theTimer.timeDivdor(minuteInpute.value);
   theTimer.countDownProcess();
-  theTimer.timeShow();
 });
