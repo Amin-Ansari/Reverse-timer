@@ -99,3 +99,6 @@ buttons[1].addEventListener("click", function () {
     }
   }
 });
+buttons[2].addEventListener("click", function () {
+  location.reload();
+});
