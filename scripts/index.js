@@ -33,18 +33,6 @@ let theTimer = {
     }
   },
   countDownStart: function () {
-    // if (this.minuteValue > 0) {
-    //   this.minuteValue - 1;
-    //   this.secondValue = 60;
-    // } else {
-    //   if (this.hourValue > 0) {
-    //     this.hourValue--;
-    //     this.minuteValue = 59;
-    //     this.secondValue = 60;
-    //   } else {
-    //     clearInterval(timeInterval);
-    //   }
-    // }
     if (Number(minuteInpute.value >= 1)) {
       if (this.minuteValue >= 1) {
         this.minuteValue--;
@@ -64,22 +52,34 @@ let theTimer = {
   },
   countdonwOperation: function () {
     this.countDownStart();
-    // timeInterval = setInterval(function () {
-    //   if (theTimer.secondValue > 0) {
-    //     theTimer.secondValue - 1;
-    //     if ((theTimer.secondValue = 0)) {
-    //       theTimer.minuteValue--;
-    //     }
-    //   } else {
-    //     if (theTimer.minuteValue > 0) {
-    //       theTimer.minuteValue--;
-    //       theTimer.secondValue = 60;
-    //     } else {
-    //       clearInterval(timeInterval);
-    //     }
-    //   }
-    //   theTimer.timeShow();
-    // }, 1000);
+    timeInterval = setInterval(function () {
+      if (minuteInpute.value >= 1) {
+        console.log("first IF");
+        if (theTimer.secondValue) {
+          console.log("seccond IF");
+          theTimer.secondValue--;
+          if (theTimer.secondValue == 0) {
+            console.log("Third IF");
+            if (theTimer.minuteValue >= 1) {
+              theTimer.minuteValue--;
+              theTimer.secondValue = 60;
+              theTimer.timeShow();
+            } else if (theTimer.hourValue >= 1) {
+              this.hourValue--;
+              this.minuteValue = 60;
+              this.minuteValue--;
+              this.secondValue = 60;
+            } else {
+              clearInterval(timeInterval);
+              timeInterval = undefined;
+            }
+          }
+          theTimer.timeShow();
+        }
+      } else {
+        console.log("Else");
+      }
+    }, 1000);
   },
 };
 
@@ -87,5 +87,10 @@ buttons[0].addEventListener("click", function () {
   if (timeInterval == undefined) {
     theTimer.timeDivdor(minuteInpute.value);
     theTimer.countdonwOperation();
+  }
+});
+buttons[1].addEventListener("click", function () {
+  if (timeInterval != undefined) {
+    clearInterval(timeInterval);
   }
 });
